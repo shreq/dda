@@ -28,8 +28,11 @@ output layer:
 - compares results with 'inputs'
 */
 
-void load_stuff   (const string, vector< vector<double> >&);
-void print_vector (const vector<double>);
+unsigned int hidden_layer_neurons = 3;
+
+void   load_stuff   (const string, vector< vector<double> >&);
+void   print_vector (const vector<double>);
+double error        (vector<double>, vector<double>);
 
 int main()
 {
@@ -42,7 +45,7 @@ int main()
     load_stuff(path, inputs);
 
 // hidden layer
-    auto hidden = make_unique<Layer>( 3, 1, inputs[0] );
+    auto hidden = make_unique<Layer>( hidden_layer_neurons, 1, inputs[0] );
 
 // output layer
     auto output = make_unique<Layer>( 4, 1, hidden->get_outputs() ); // passing trash as input for now, just for size actually
@@ -50,18 +53,33 @@ int main()
 // training
     for(unsigned int i=0; i<inputs.size(); i++)
     {
+    // forward propagation
         hidden->set_inputs( inputs[i] );
         hidden->count();
 
         output->set_inputs( hidden->get_outputs() );
         output->count();
 
-        //TODO next steps
+    // back propagation
+        output->grade( inputs[i] );
+        hidden->grade();
+
+    // weights tweaking
+        output->update();
+        hidden->update();
+
+    //
+        cout << "\n  - - " << i << " - -";
+        print_vector(hidden->get_outputs());
+        print_vector(output->get_outputs());
+        cout << '\n' << error( inputs[i], output->get_outputs() );
     }
 
 // cout-driven debugging
+    /*hidden->count();
+    output->count();
     print_vector( hidden->get_outputs() );
-    print_vector( output->get_outputs() );
+    print_vector( output->get_outputs() );*/
 
 // time to stop
     cout << "\n- - -S T O P- - -\n";
@@ -94,6 +112,20 @@ void print_vector(const vector<double> vec)
         cout << vec[i] << '\n';
 }
 
-/* exit errors
-1   cannot find file
-*/
+double error(vector<double> wanteds, vector<double> counted)
+{
+    if(wanteds.size() != counted.size())
+        exit(2);
+
+    double error = 0;
+
+    for(unsigned int i=0; i<wanteds.size(); i++)
+    {
+        double sub = wanteds[i] - counted[i];
+        error += sub * sub;
+    }
+
+    error /= wanteds.size();
+
+    return error;
+}

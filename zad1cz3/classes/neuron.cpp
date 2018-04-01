@@ -53,7 +53,7 @@ double Neuron::grade()
     return gradient;
 }
 
-void Neuron::update(vector<double> wanteds)
+void Neuron::update()
 {
     double temp_weight, temp_bias;
 
@@ -61,7 +61,7 @@ void Neuron::update(vector<double> wanteds)
     {
         temp_weight = weights[i];
 
-        weights[i] += learning_mp * grade() * inputs[i];
+        weights[i] += learning_mp * gradient * inputs[i];
 
         // str 99
         // error = (target_value - actual_output)^2
@@ -71,7 +71,7 @@ void Neuron::update(vector<double> wanteds)
     }
 
     temp_bias = bias;
-    bias += learning_mp * grade();
+    bias += learning_mp * gradient;
     biasOLD = temp_bias;
 }
 

@@ -17,12 +17,28 @@ Layer::~Layer()
     //cout << "\ndtor Layer";
 }
 
-vector<double> Layer::count()
+void Layer::count()
 {
-    vector<double> temp;
     for(unsigned int i=0; i<neurons.size(); i++)
         neurons[i]->Neuron::count();
-    return temp;
+}
+
+void Layer::grade(vector<double> wanteds)
+{
+    for(unsigned int i=0; i<neurons.size(); i++)
+        neurons[i]->Neuron::grade( wanteds[i] );
+}
+
+void Layer::grade()
+{
+    for(unsigned int i=0; i<neurons.size(); i++)
+        neurons[i]->Neuron::grade();
+}
+
+void Layer::update()
+{
+    for(unsigned int i=0; i<neurons.size(); i++)
+        neurons[i]->Neuron::update();
 }
 
 void Layer::set_inputs(const vector<double> inputs)

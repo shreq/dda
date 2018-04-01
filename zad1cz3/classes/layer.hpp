@@ -15,7 +15,10 @@ public:
     Layer(unsigned int, double, std::vector<double>);
     virtual ~Layer();
 
-    std::vector<double> count();
+    void count();
+    void grade(std::vector<double>);
+    void grade();
+    void update();
 
     void set_inputs(const std::vector<double>);
     std::vector<double> get_outputs();
