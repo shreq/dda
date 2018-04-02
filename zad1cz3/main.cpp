@@ -29,6 +29,7 @@ output layer:
 */
 
 unsigned int hidden_layer_neurons = 3;
+bool use_bias = true;
 
 void   load_stuff   (const string, vector< vector<double> >&);
 void   print_vector (const vector<double>);
@@ -45,12 +46,14 @@ int main()
     load_stuff(path, inputs);
 
 // hidden layer
-    auto hidden = make_unique<Layer>( hidden_layer_neurons, 1, inputs[0] );
+    auto hidden = make_unique<Layer>( hidden_layer_neurons, 1, use_bias, inputs[0] );
 
 // output layer
-    auto output = make_unique<Layer>( 4, 1, hidden->get_outputs() ); // passing trash as input for now, just for size actually
+    auto output = make_unique<Layer>( 4, 1, use_bias, hidden->get_outputs() ); // passing trash as input for now, just for size actually
 
 // training
+for(int z=0; z<1; z++) // d e l e t e
+{
     for(unsigned int i=0; i<inputs.size(); i++)
     {
     // forward propagation
@@ -61,8 +64,8 @@ int main()
         output->count();
 
     // back propagation
-        output->grade( inputs[i] );
-        hidden->grade();
+        output->grade4output( inputs[i] );
+        hidden->grade4hidden( output->get_gradients() );
 
     // weights tweaking
         output->update();
@@ -70,16 +73,18 @@ int main()
 
     //
         cout << "\n  - - " << i << " - -";
-        print_vector(hidden->get_outputs());
-        print_vector(output->get_outputs());
-        cout << '\n' << error( inputs[i], output->get_outputs() );
+        print_vector( hidden->get_outputs() );
+        print_vector( output->get_outputs() );
+        //cout << "\t" << error( inputs[i], output->get_outputs() );
     }
+}
 
 // cout-driven debugging
-    /*hidden->count();
+    /*cout << endl;
+    hidden->count();
     output->count();
-    print_vector( hidden->get_outputs() );
-    print_vector( output->get_outputs() );*/
+    print_vector( hidden->neurons[0]->get_weights() );
+    print_vector( output->neurons[0]->get_weights() );*/
 
 // time to stop
     cout << "\n- - -S T O P- - -\n";

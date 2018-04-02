@@ -8,24 +8,22 @@ using namespace std;
 double sigmoid   (const double arg) { return 1.0 / ( 1.0 + exp(-arg) ); }
 double sigmoid_d (const double arg) { return sigmoid(arg) * (1.0 - sigmoid(arg)); }
 
-Neuron::Neuron(double learning_mp, vector<double> inputs)
+Neuron::Neuron(double learning_mp, bool use_bias, vector<double> inputs)
 : learning_mp(learning_mp), inputs(inputs)
 {
     for(unsigned int i=0; i<inputs.size(); i++)
         weights.push_back( (rand() % 99 + 1) / 100.0 ); // rand = [1; 99]
-    bias = (rand() % 99 + 1) / 100.0;
+    if(use_bias)
+        bias = (rand() % 99 + 1) / 100.0;
+    else
+        bias = 0;
 
     weightsOLD = weights;
     biasOLD = bias;
-    output = gradient = (unsigned int)(-1);
-
-    //cout << "\nctor Neuron";
+    output = gradient = momentum = (unsigned int)(-1);
 }
 
-Neuron::~Neuron()
-{
-    //cout << "\ndtor Neuron";
-}
+Neuron::~Neuron() {}
 
 double Neuron::sum()
 {
@@ -41,31 +39,37 @@ double Neuron::count()
     return output;
 }
 
-double Neuron::grade(double wanted)
+double Neuron::grade4output(double wanted)
 {
-    gradient = (wanted - output) * sigmoid_d(output);
+    gradient = (wanted - output);// * sigmoid_d(output);
     return gradient;
 }
 
-double Neuron::grade()
+double Neuron::grade4hidden(vector<double> out_err)
 {
-    gradient = sum() * sigmoid_d(output);
+    //gradient = sum() * sigmoid_d(output);
+    gradient = 0;
+    for(unsigned int i=0; i<inputs.size(); i++)
+        gradient += weights[i] * out_err[i];
     return gradient;
 }
 
 void Neuron::update()
 {
     double temp_weight, temp_bias;
+    double delta_weight;
 
     for(unsigned int i=0; i<weights.size(); i++)
     {
         temp_weight = weights[i];
 
-        weights[i] += learning_mp * gradient * inputs[i];
+        //weights[i] += learning_mp * gradient * inputs[i];
+        //weights[i] += learning_mp * gradient * output;
 
         // str 99
-        // error = (target_value - actual_output)^2
         // delta_weight = learning_mp * error(previous_layer - next_layer) * sigmoid_d(output_current_layer) * (output_previous_layer 'T')
+        delta_weight = learning_mp * gradient * sigmoid_d(output) * inputs[i];
+        weights[i] += delta_weight;
 
         weightsOLD[i] = temp_weight;
     }
@@ -85,7 +89,17 @@ void Neuron::set_inputs(const vector<double> inputs)
     this->inputs = inputs;
 }
 
+vector<double> Neuron::get_inputs()
+{
+    return inputs;
+}
+
 vector<double> Neuron::get_weights()
 {
     return weights;
+}
+
+double Neuron::get_gradient()
+{
+    return gradient;
 }
