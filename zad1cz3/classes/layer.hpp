@@ -12,7 +12,7 @@ class Layer
 public:
     std::vector< std::unique_ptr<Neuron> > neurons;
 
-    Layer(unsigned int, double, bool, std::vector<double>);
+    Layer(unsigned int, double, double, bool, std::vector<double>);
     virtual ~Layer();
 
     void count();

@@ -17,13 +17,13 @@ class Neuron
     double momentum;
 
 public:
-    Neuron(double, bool, std::vector<double>);
+    Neuron(double, double, bool, std::vector<double>);
     virtual ~Neuron();
 
     double sum();                   // sum of products of inputs and weights
     double count();                 // forward propagation
-    double grade4output(double);    // count gradient, (wanted - output) * sigmoid_der
-    double grade4hidden(std::vector<double>);    // count gradient,
+    double grade4output(double);    // count gradient
+    double grade4hidden(std::vector<double>);
     void update();                  // update weights and bias
 
     double get_output();

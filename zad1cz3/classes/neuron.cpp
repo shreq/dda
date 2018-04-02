@@ -8,8 +8,8 @@ using namespace std;
 double sigmoid   (const double arg) { return 1.0 / ( 1.0 + exp(-arg) ); }
 double sigmoid_d (const double arg) { return sigmoid(arg) * (1.0 - sigmoid(arg)); }
 
-Neuron::Neuron(double learning_mp, bool use_bias, vector<double> inputs)
-: learning_mp(learning_mp), inputs(inputs)
+Neuron::Neuron(double learning_mp, double momentum, bool use_bias, vector<double> inputs)
+: learning_mp(learning_mp), momentum(momentum), inputs(inputs)
 {
     for(unsigned int i=0; i<inputs.size(); i++)
         weights.push_back( (rand() % 99 + 1) / 100.0 ); // rand = [1; 99]
@@ -20,7 +20,7 @@ Neuron::Neuron(double learning_mp, bool use_bias, vector<double> inputs)
 
     weightsOLD = weights;
     biasOLD = bias;
-    output = gradient = momentum = (unsigned int)(-1);
+    output = gradient = (unsigned int)(-1);
 }
 
 Neuron::~Neuron() {}
@@ -41,16 +41,16 @@ double Neuron::count()
 
 double Neuron::grade4output(double wanted)
 {
-    gradient = (wanted - output);// * sigmoid_d(output);
+    gradient = wanted - output;
     return gradient;
 }
 
 double Neuron::grade4hidden(vector<double> out_err)
 {
-    //gradient = sum() * sigmoid_d(output);
     gradient = 0;
     for(unsigned int i=0; i<inputs.size(); i++)
         gradient += weights[i] * out_err[i];
+    gradient *= sigmoid_d(output);
     return gradient;
 }
 
@@ -68,8 +68,7 @@ void Neuron::update()
 
         // str 99
         // delta_weight = learning_mp * error(previous_layer - next_layer) * sigmoid_d(output_current_layer) * (output_previous_layer 'T')
-        delta_weight = learning_mp * gradient * sigmoid_d(output) * inputs[i];
-        weights[i] += delta_weight;
+        weights[i] += learning_mp * gradient * sigmoid_d(output) * inputs[i];
 
         weightsOLD[i] = temp_weight;
     }

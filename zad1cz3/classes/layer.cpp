@@ -4,10 +4,10 @@
 
 using namespace std;
 
-Layer::Layer(unsigned int nquantity, double learning_mp, bool use_bias, vector<double> inputs)
+Layer::Layer(unsigned int nquantity, double learning_mp, double momentum, bool use_bias, vector<double> inputs)
 {
     for(unsigned int i=0; i<nquantity; i++)
-        neurons.emplace_back( make_unique<Neuron>(learning_mp, use_bias, inputs) );
+        neurons.emplace_back( make_unique<Neuron>(learning_mp, momentum, use_bias, inputs) );
 }
 
 Layer::~Layer() {}
