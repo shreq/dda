@@ -4,4 +4,5 @@ set xlabel "epoch"
 set ylabel "error"
 plot '../res/error.dat'
 
-pause -1
+pause mouse any
+#pause -1

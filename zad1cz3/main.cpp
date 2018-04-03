@@ -55,6 +55,7 @@ int main()
     double err = (unsigned int)(-1);
 
     for(int z=0; err>0.001; z++)
+    //for(int z=0; z<1000; z++)
     {
         err = 0;
 
@@ -77,6 +78,9 @@ int main()
 
         //
             err += error( inputs[i], output->get_outputs() );
+
+        // cout-driven debuggin
+            print_vector( output->get_outputs() );
         }
 
         err /= inputs[0].size();
@@ -86,6 +90,7 @@ int main()
     save_error( mean_error );
 
 // final
+/*
     for(unsigned int i=0; i<inputs.size(); i++)
     {
         err = 0;
@@ -104,7 +109,7 @@ int main()
     }
 
     cout << "\nError:\n  " << err/inputs[0].size();
-
+*/
 // time to stop
     cout << "\n- - -S T O P- - -\n";
     return 0;
