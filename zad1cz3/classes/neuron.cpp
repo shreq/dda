@@ -50,7 +50,6 @@ double Neuron::grade4hidden(vector<double> out_err)
     gradient = 0;
     for(unsigned int i=0; i<inputs.size(); i++)
         gradient += weights[i] * out_err[i];
-    //gradient *= sigmoid_d(output);
     gradient *= output * (1.0 - output);
     return gradient;
 }
@@ -64,10 +63,8 @@ void Neuron::update()
     {
         temp_weight = weights[i];
 
-        //weights[i] += learning_mp * gradient * inputs[i];
-        //weights[i] += learning_mp * gradient * output;
+        weights[i] += learning_mp * gradient * inputs[i];
 
-        weights[i] += learning_mp * gradient * sigmoid_d(output) * inputs[i];
         //weights[i] += learning_mp * gradient * inputs[i] + momentum * weightsOLD[i];
 
         weightsOLD[i] = temp_weight;

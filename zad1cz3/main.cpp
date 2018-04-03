@@ -26,8 +26,10 @@ output layer:
 - sigmoid function
 */
 
-unsigned int hidden_layer_neurons = 3;
-bool use_bias = 0;
+unsigned int hidden_layer_neurons = 1;
+bool         use_bias    = false;
+double       learning_mp = 0.99;
+double       momentum    = 0.99;
 
 void   load_stuff   (const string, vector< vector<double> >&);
 void   print_vector (const vector<double>);
@@ -45,17 +47,16 @@ int main()
     load_stuff(path, inputs);
 
 // hidden layer
-    auto hidden = make_unique<Layer>( hidden_layer_neurons, 0.99, 1, use_bias, inputs[0] );
+    auto hidden = make_unique<Layer>( hidden_layer_neurons, 0.99, 0.99, use_bias, inputs[0] );
 
 // output layer
-    auto output = make_unique<Layer>( 4, 0.99, 1, use_bias, hidden->get_outputs() ); // passing trash as input for now, just for size actually
+    auto output = make_unique<Layer>( 4, 0.99, 0.99, use_bias, hidden->get_outputs() ); // passing trash as input for now, just for size actually
 
 // training
     vector<double> mean_error;
     double err = (unsigned int)(-1);
 
-    for(int z=0; err>0.001; z++)
-    //for(int z=0; z<1000; z++)
+    for(int epoch=0; err>0.01 and epoch<1000; epoch++)
     {
         err = 0;
 
@@ -80,17 +81,19 @@ int main()
             err += error( inputs[i], output->get_outputs() );
 
         // cout-driven debuggin
-            print_vector( output->get_outputs() );
+            //print_vector( output->get_outputs() );
         }
 
         err /= inputs[0].size();
         mean_error.push_back( err );
+
+        if(epoch == 999)
+            cout << "\nMax epochs number reached!\n";
     }
 
     save_error( mean_error );
 
 // final
-/*
     for(unsigned int i=0; i<inputs.size(); i++)
     {
         err = 0;
@@ -109,7 +112,7 @@ int main()
     }
 
     cout << "\nError:\n  " << err/inputs[0].size();
-*/
+
 // time to stop
     cout << "\n- - -S T O P- - -\n";
     return 0;
