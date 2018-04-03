@@ -26,10 +26,10 @@ output layer:
 - sigmoid function
 */
 
-unsigned int hidden_layer_neurons = 2;
-bool         use_bias    = true;
-double       learning_mp = 0.99;
-double       momentum    = 0.09;
+unsigned int hidden_layer_neurons = 3;
+bool         use_bias    = 1;
+double       learning_mp = 2.0;
+double       momentum    = 0.1;
 
 void   load_stuff   (const string, vector< vector<double> >&);
 void   print_vector (const vector<double>);
@@ -84,14 +84,15 @@ int main()
         err /= inputs[0].size();
         mean_error.push_back( err );
 
-        if(epoch == 999)
-            cout << "\nMax epochs number reached!\n";
+        if(epoch == 9999)
+            cout << "\nMax epochs number reached!\n"; // nothing much interesting happens after 10000th epoch
     }
 
     save_error( mean_error );
 
 // final
     err = 0;
+
     for(unsigned int i=0; i<inputs.size(); i++)
     {
         hidden->set_inputs( inputs[i] );
