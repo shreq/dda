@@ -26,10 +26,10 @@ output layer:
 - sigmoid function
 */
 
-unsigned int hidden_layer_neurons = 1;
-bool         use_bias    = false;
+unsigned int hidden_layer_neurons = 2;
+bool         use_bias    = true;
 double       learning_mp = 0.99;
-double       momentum    = 0.99;
+double       momentum    = 0.09;
 
 void   load_stuff   (const string, vector< vector<double> >&);
 void   print_vector (const vector<double>);
@@ -47,16 +47,16 @@ int main()
     load_stuff(path, inputs);
 
 // hidden layer
-    auto hidden = make_unique<Layer>( hidden_layer_neurons, 0.99, 0.99, use_bias, inputs[0] );
+    auto hidden = make_unique<Layer>( hidden_layer_neurons, learning_mp, momentum, use_bias, inputs[0] );
 
 // output layer
-    auto output = make_unique<Layer>( 4, 0.99, 0.99, use_bias, hidden->get_outputs() ); // passing trash as input for now, just for size actually
+    auto output = make_unique<Layer>( 4, learning_mp, momentum, use_bias, hidden->get_outputs() ); // passing trash as input for now, just for size actually
 
 // training
     vector<double> mean_error;
     double err = (unsigned int)(-1);
 
-    for(int epoch=0; err>0.01 and epoch<1000; epoch++)
+    for(int epoch=0; err>0.01 and epoch<10000; epoch++)
     {
         err = 0;
 
@@ -79,9 +79,6 @@ int main()
 
         //
             err += error( inputs[i], output->get_outputs() );
-
-        // cout-driven debuggin
-            //print_vector( output->get_outputs() );
         }
 
         err /= inputs[0].size();
@@ -94,9 +91,9 @@ int main()
     save_error( mean_error );
 
 // final
+    err = 0;
     for(unsigned int i=0; i<inputs.size(); i++)
     {
-        err = 0;
         hidden->set_inputs( inputs[i] );
         hidden->count();
 
