@@ -3,23 +3,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Layer {
-    List<Point>  inputs;
+    List<Point> inputs;
     List<Neuron> neurons;
-    int    epochs = 0;
-    double learning_mp = 0.1;
-    double radius = 1;
+    private final double learning_mp_0;
+    private double radius_0 = 0;
+    final int max_epochs;
+    protected int iterations = 0;
+    protected double learning_mp;
 
-    public Layer() {
+    public Layer(int max_epochs, double learning_mp_0) {
         inputs = new ArrayList<Point>();
         neurons = new ArrayList<Neuron>();
+        this.max_epochs = max_epochs;
+        this.learning_mp = this.learning_mp_0 = learning_mp_0;
     }
 
     public int pickBMU(Point p) {
         int index = 0;
-        double distanceOLD = Math.sqrt( Math.pow( (neurons.get(0).weights.x - p.x), 2) + Math.pow( (neurons.get(0).weights.y - p.y), 2) );
+        double distanceOLD = euclideanDistance2D( neurons.get(0).weights, p );
 
         for(int i=1; i<neurons.size(); i++) {
-            double distance = Math.sqrt( Math.pow( (neurons.get(i).weights.x - p.x), 2) + Math.pow( (neurons.get(i).weights.y - p.y), 2) );
+            double distance = euclideanDistance2D( neurons.get(i).weights, p);
 
             if( distance < distanceOLD ) {
                 distanceOLD = distance;
@@ -30,11 +34,32 @@ public class Layer {
         return index;
     }
 
-    public void updateNeurons(int index) {
-        double tempx = neurons.get(index).weights.x;
-        double tempy = neurons.get(index).weights.y;
-        neurons.get(index).weights.x = tempx + learning_mp * (neurons.get(index).input.x - tempx);
-        neurons.get(index).weights.y = tempy + learning_mp * (neurons.get(index).input.y - tempy);
+    public double radius_t() {
+        //double lambda = max_epochs / Math.log(radius_0);
+        double lambda = max_epochs;// / radius_0;
+        double radius_t = radius_0 * Math.exp(-iterations / lambda); // beware hidden conversion!
+        return radius_t;
+    }
+
+    public void train(Point p) {
+        int index = pickBMU(p);
+
+        for(int i=0; i<neurons.size(); i++) {
+            double distance2bmu = euclideanDistance2D(neurons.get(i).weights, neurons.get(index).weights);
+
+            if( distance2bmu < Math.pow(radius_t(), 2) ) {
+                double theta = Math.exp( -Math.pow(distance2bmu, 2) / (2*Math.pow(radius_t(), 2)) ); // influence
+
+                neurons.get(i).weights.x += theta * learning_mp * (p.x - neurons.get(i).weights.x);
+                neurons.get(i).weights.y += theta * learning_mp * (p.y - neurons.get(i).weights.y);
+
+                neurons.get(i).response++;
+            }
+        }
+
+        learning_mp = learning_mp_0 * Math.exp(-(double)iterations / max_epochs); // beware hidden conversion!
+        //learning_mp -= learning_mp_0 * 0.1;
+        iterations++;
     }
 
     public void loadInputs(String filepath) {
@@ -56,7 +81,6 @@ public class Layer {
 
     public void saveNeurons(String filepath) {
         try {
-            //DataOutputStream out = new DataOutputStream( new FileOutputStream(filepath) );
             BufferedWriter out = new BufferedWriter( new FileWriter( filepath ) );
 
             for(int i=0; i<neurons.size(); i++) {
@@ -78,6 +102,19 @@ public class Layer {
         for(int i=0; i<quantity; i++) {
             neurons.add( new Neuron() );
         }
+
+        for(int i=0; i<neurons.size(); i++) {
+            double distance = Math.sqrt( Math.pow( (neurons.get(i).weights.x - 0), 2) + Math.pow( (neurons.get(i).weights.y - 0), 2) );
+
+            if( distance > radius_0 ) {
+                radius_0 = distance;
+            }
+        }
+        radius_0 *= 0.5;
+    }
+
+    public double euclideanDistance2D(Point a, Point b) {
+        return Math.sqrt( (a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y) );
     }
 
     public String infoInputs() {
