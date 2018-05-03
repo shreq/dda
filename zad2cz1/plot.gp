@@ -1,8 +1,8 @@
 # cmd/ps > gnuplot "ploterror.gp"
 
-set xlabel "epoch"
-set ylabel "error"
-plot './res/nens2'
+set xlabel "X"
+set ylabel "Y"
+plot './res/nens1'
 
 pause mouse any
 #pause -1

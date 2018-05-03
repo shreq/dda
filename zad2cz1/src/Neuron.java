@@ -5,7 +5,8 @@ public class Neuron {
     int response = 0;
 
     public Neuron() {
-        weights = new Point( ThreadLocalRandom.current().nextDouble(-1, 1), ThreadLocalRandom.current().nextDouble(-1, 1) );
+        weights = new Point( ThreadLocalRandom.current().nextDouble(-1, 1),
+                             ThreadLocalRandom.current().nextDouble(-1, 1) );
     }
 
     public String info() {
