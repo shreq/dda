@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Layer {
@@ -16,14 +17,15 @@ public class Layer {
         neurons = new ArrayList<Neuron>();
         this.max_epochs = max_epochs;
         this.learning_mp = this.learning_mp_0 = learning_mp_0;
-    }
+    } // #kohonen
 
     public int pickBMU(Point p) {
         int index = 0;
         double distanceOLD = euclideanDistance2D( neurons.get(0).weights, p );
 
-        for(int i=1; i<neurons.size(); i++) {
+        for(int i=0; i<neurons.size(); i++) {
             double distance = euclideanDistance2D( neurons.get(i).weights, p);
+            neurons.get(i).distance = distance;
 
             if( distance < distanceOLD ) {
                 distanceOLD = distance;
@@ -32,14 +34,14 @@ public class Layer {
         }
 
         return index;
-    }
+    } // #kohonen
 
     public double radius_t() {
         //double lambda = max_epochs / Math.log(radius_0);
         double lambda = max_epochs;// / radius_0;
         double radius_t = radius_0 * Math.exp(-iterations / lambda); // beware hidden conversion!
         return radius_t;
-    }
+    } // #kohonen
 
     public void train(Point p) {
         int index = pickBMU(p);
@@ -58,9 +60,35 @@ public class Layer {
         }
 
         learning_mp = learning_mp_0 * Math.exp(-(double)iterations / max_epochs); // beware hidden conversion!
-        //learning_mp -= learning_mp_0 * 0.1;
         iterations++;
-    }
+    } // #kohonen
+
+    public void train_gas(Point p) {
+        int index = pickBMU(p);
+        sortNeurons();
+
+        for(int i=0; i<neurons.size(); i++) {
+            double distance2bmu = euclideanDistance2D(neurons.get(i).weights, neurons.get(index).weights);
+
+            if( distance2bmu < Math.pow(radius_t(), 2) ) {
+                double lambda = 0.9 * Math.pow(1/9, iterations/max_epochs);
+                double theta = Math.exp( -i / lambda ); // influence
+
+                neurons.get(i).weights.x += theta * learning_mp * (p.x - neurons.get(i).weights.x);
+                neurons.get(i).weights.y += theta * learning_mp * (p.y - neurons.get(i).weights.y);
+
+                //if( theta > 0.000000000000000000001 ) // works faster and looks better with this, kinda..
+                    neurons.get(i).response++;
+            }
+        }
+
+        learning_mp = learning_mp_0 * Math.exp(-(double)iterations / max_epochs); // beware hidden conversion!
+        iterations++;
+    } // #gas
+
+    public void sortNeurons() {
+        Collections.sort( neurons, new Sorter() );
+    } // #gas
 
     public void loadInputs(String filepath) {
         try {
@@ -77,7 +105,7 @@ public class Layer {
         catch (IOException e) {
             // bamboozled
         }
-    }
+    } // #kohonen
 
     public void saveNeurons(String filepath) {
         try {
@@ -96,7 +124,7 @@ public class Layer {
         catch (IOException e) {
             // bamboozled
         }
-    }
+    } // #kohonen
 
     public void initNeurons(int quantity) {
         for(int i=0; i<quantity; i++) {
@@ -111,7 +139,7 @@ public class Layer {
             }
         }
         radius_0 *= 0.5;
-    }
+    } // #kohonen
 
     public double euclideanDistance2D(Point a, Point b) {
         return Math.sqrt( (a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y) );

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/Main.java" line="50" />
+    <bookmark url="file://$PROJECT_DIR$/src/Main.java" line="90" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5a5b6ea-a849-4748-bd81-7c3b4ed9348b" name="Default" comment="" />
@@ -17,20 +17,46 @@
     <SUITE FILE_PATH="coverage/zad2java$Main.ic" NAME="Main Coverage Results" MODIFIED="1525177498276" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="77">
-              <caret line="19" column="23" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="23" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.42355606">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/Main.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="476">
+                  <caret line="37" column="21" lean-forward="true" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="Layer.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/Layer.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="400">
+                  <caret line="79" column="18" selection-start-line="79" selection-start-column="18" selection-end-line="79" selection-end-column="18" />
+                  <folding>
+                    <element signature="method#radius_t#0;class#Layer#0" />
+                    <element signature="method#loadInputs#0;class#Layer#0" />
+                    <element signature="method#saveNeurons#0;class#Layer#0" />
+                    <element signature="method#initNeurons#0;class#Layer#0" />
+                    <element signature="method#euclideanDistance2D#0;class#Layer#0" />
+                    <element signature="method#infoInputs#0;class#Layer#0" />
+                    <element signature="method#infoNeurons#0;class#Layer#0" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -43,10 +69,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/Point.java" />
-        <option value="$PROJECT_DIR$/src/Layer.java" />
-        <option value="$PROJECT_DIR$/src/Neuron.java" />
         <option value="$PROJECT_DIR$/res/scripts/load_pic.gp" />
         <option value="$PROJECT_DIR$/res/scripts/make gif script.gp" />
+        <option value="$PROJECT_DIR$/src/Sorter.java" />
+        <option value="$PROJECT_DIR$/src/Neuron.java" />
+        <option value="$PROJECT_DIR$/src/Layer.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
       </list>
     </option>
@@ -62,6 +89,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -89,9 +118,22 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-      <pane id="Scope" />
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="zad2cz1" type="1abcf292:AndroidViewProjectNode" />
+              <item name="zad2" type="e9137016:NonAndroidModuleNode" />
+            </path>
+            <path>
+              <item name="zad2cz1" type="1abcf292:AndroidViewProjectNode" />
+              <item name="zad2" type="e9137016:NonAndroidModuleNode" />
+              <item name="java" type="f7eae187:NonAndroidSourceTypeNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -158,14 +200,15 @@
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32731137" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="6" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3092455" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.25398514" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32943678" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="3" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.08020833" />
@@ -182,7 +225,6 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32818532" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.32731137" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -190,10 +232,108 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="21" />
+      <option name="time" value="24" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1615">
+          <caret line="95" lean-forward="true" selection-start-line="95" selection-end-line="95" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Layer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1343">
+          <caret line="87" lean-forward="true" selection-start-line="87" selection-end-line="87" />
+          <folding>
+            <element signature="method#radius_t#0;class#Layer#0" />
+            <element signature="method#loadInputs#0;class#Layer#0" />
+            <element signature="method#saveNeurons#0;class#Layer#0" />
+            <element signature="method#initNeurons#0;class#Layer#0" />
+            <element signature="method#euclideanDistance2D#0;class#Layer#0" />
+            <element signature="method#infoInputs#0;class#Layer#0" />
+            <element signature="method#infoNeurons#0;class#Layer#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="41" column="28" selection-start-line="41" selection-start-column="28" selection-end-line="41" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Layer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1173">
+          <caret line="77" column="18" selection-start-line="77" selection-start-column="18" selection-end-line="77" selection-end-column="18" />
+          <folding>
+            <element signature="method#radius_t#0;class#Layer#0" />
+            <element signature="method#loadInputs#0;class#Layer#0" />
+            <element signature="method#saveNeurons#0;class#Layer#0" />
+            <element signature="method#initNeurons#0;class#Layer#0" />
+            <element signature="method#euclideanDistance2D#0;class#Layer#0" />
+            <element signature="method#infoInputs#0;class#Layer#0" />
+            <element signature="method#infoNeurons#0;class#Layer#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1615">
+          <caret line="95" lean-forward="true" selection-start-line="95" selection-end-line="95" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Layer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2397">
+          <caret line="141" lean-forward="true" selection-start-line="141" selection-end-line="141" />
+          <folding>
+            <element signature="method#radius_t#0;class#Layer#0" />
+            <element signature="method#loadInputs#0;class#Layer#0" />
+            <element signature="method#saveNeurons#0;class#Layer#0" />
+            <element signature="method#initNeurons#0;class#Layer#0" />
+            <element signature="method#euclideanDistance2D#0;class#Layer#0" />
+            <element signature="method#infoInputs#0;class#Layer#0" />
+            <element signature="method#infoNeurons#0;class#Layer#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="23" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="23" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
@@ -236,8 +376,7 @@
         <state relative-caret-position="935">
           <caret line="139" lean-forward="true" selection-start-line="139" selection-end-line="139" />
           <folding>
-            <element signature="method#Layer#0;class#Layer#0" />
-            <element signature="method#pickBMU#0;class#Layer#0" />
+            <element signature="method#radius_t#0;class#Layer#0" />
             <element signature="method#loadInputs#0;class#Layer#0" />
             <element signature="method#saveNeurons#0;class#Layer#0" />
             <element signature="method#initNeurons#0;class#Layer#0" />
@@ -270,8 +409,7 @@
         <state relative-caret-position="629">
           <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
           <folding>
-            <element signature="method#Layer#0;class#Layer#0" />
-            <element signature="method#pickBMU#0;class#Layer#0" />
+            <element signature="method#radius_t#0;class#Layer#0" />
             <element signature="method#loadInputs#0;class#Layer#0" />
             <element signature="method#saveNeurons#0;class#Layer#0" />
             <element signature="method#initNeurons#0;class#Layer#0" />
@@ -297,8 +435,7 @@
         <state relative-caret-position="510">
           <caret line="56" column="13" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="13" />
           <folding>
-            <element signature="method#Layer#0;class#Layer#0" />
-            <element signature="method#pickBMU#0;class#Layer#0" />
+            <element signature="method#radius_t#0;class#Layer#0" />
             <element signature="method#loadInputs#0;class#Layer#0" />
             <element signature="method#saveNeurons#0;class#Layer#0" />
             <element signature="method#initNeurons#0;class#Layer#0" />
@@ -331,8 +468,7 @@
         <state relative-caret-position="884">
           <caret line="52" selection-start-line="52" selection-end-line="52" />
           <folding>
-            <element signature="method#Layer#0;class#Layer#0" />
-            <element signature="method#pickBMU#0;class#Layer#0" />
+            <element signature="method#radius_t#0;class#Layer#0" />
             <element signature="method#loadInputs#0;class#Layer#0" />
             <element signature="method#saveNeurons#0;class#Layer#0" />
             <element signature="method#initNeurons#0;class#Layer#0" />
@@ -362,8 +498,7 @@
         <state relative-caret-position="595">
           <caret line="51" column="63" lean-forward="true" selection-start-line="51" selection-start-column="63" selection-end-line="51" selection-end-column="63" />
           <folding>
-            <element signature="method#Layer#0;class#Layer#0" />
-            <element signature="method#pickBMU#0;class#Layer#0" />
+            <element signature="method#radius_t#0;class#Layer#0" />
             <element signature="method#loadInputs#0;class#Layer#0" />
             <element signature="method#saveNeurons#0;class#Layer#0" />
             <element signature="method#initNeurons#0;class#Layer#0" />
@@ -393,8 +528,7 @@
         <state relative-caret-position="85">
           <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
           <folding>
-            <element signature="method#Layer#0;class#Layer#0" />
-            <element signature="method#pickBMU#0;class#Layer#0" />
+            <element signature="method#radius_t#0;class#Layer#0" />
             <element signature="method#loadInputs#0;class#Layer#0" />
             <element signature="method#saveNeurons#0;class#Layer#0" />
             <element signature="method#initNeurons#0;class#Layer#0" />
@@ -483,30 +617,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Layer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="139" selection-start-line="139" selection-end-line="139" />
-          <folding>
-            <element signature="method#Layer#0;class#Layer#0" />
-            <element signature="method#pickBMU#0;class#Layer#0" />
-            <element signature="method#loadInputs#0;class#Layer#0" />
-            <element signature="method#saveNeurons#0;class#Layer#0" />
-            <element signature="method#initNeurons#0;class#Layer#0" />
-            <element signature="method#euclideanDistance2D#0;class#Layer#0" />
-            <element signature="method#infoInputs#0;class#Layer#0" />
-            <element signature="method#infoNeurons#0;class#Layer#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Neuron.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/scripts/load_pic.gp">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -521,17 +631,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-9.0.4/lib/src.zip!/java.base/java/util/Comparator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="149" column="8" selection-start-line="149" selection-start-column="8" selection-end-line="149" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Sorter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Neuron.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/zad2.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Layer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="79" column="18" selection-start-line="79" selection-start-column="18" selection-end-line="79" selection-end-column="18" />
+          <folding>
+            <element signature="method#radius_t#0;class#Layer#0" />
+            <element signature="method#loadInputs#0;class#Layer#0" />
+            <element signature="method#saveNeurons#0;class#Layer#0" />
+            <element signature="method#initNeurons#0;class#Layer#0" />
+            <element signature="method#euclideanDistance2D#0;class#Layer#0" />
+            <element signature="method#infoInputs#0;class#Layer#0" />
+            <element signature="method#infoNeurons#0;class#Layer#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="77">
-          <caret line="19" column="23" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="23" />
+        <state relative-caret-position="476">
+          <caret line="37" column="21" lean-forward="true" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
