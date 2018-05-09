@@ -11,8 +11,4 @@ public class Point {
         this.x = x;
         this.y = y;
     }
-
-    public String info() {
-        return x + " ; \t" + y;
-    }
 }
