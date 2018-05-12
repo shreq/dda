@@ -27,7 +27,7 @@ public class Main {
         BufferedWriter out = new BufferedWriter( new FileWriter("./res/error.dat"));
 
         System.out.println("> making SOM");
-        Layer som = new Layer(100000, 0.999);
+        Layer som = new Layer(500, 0.999);
         som.loadInputs(file);
         som.initNeurons( som.inputs.size() );
         som.saveNeurons("./res/nens");
@@ -91,5 +91,7 @@ public class Main {
         System.out.println( som.neurons.size() + " neurons survived the training" );
         System.out.println( "final error:  " + som.error() );
         som.saveNeurons("./res/nens2");
+        System.out.println("> drawing");
+        som.draw();
     }
 }

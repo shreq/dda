@@ -1,4 +1,8 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -161,5 +165,9 @@ public class Layer {
 
     public double euclideanDistance2D(Point a, Point b) {
         return Math.sqrt( (a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y) );
+    }
+
+    public void draw() {
+        Drawer draw = new Drawer(inputs, neurons);
     }
 }
