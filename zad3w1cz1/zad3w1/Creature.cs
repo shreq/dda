@@ -44,15 +44,8 @@ namespace zad3w1
         {
             string str = "";
             foreach (var g in this.genotype)
-                str += g.ToString() + "; ";
+                str += g.ToString("N5") + "; ";
             return str;
-        }
-
-        public uint Random()
-        {
-            var data = new byte[sizeof(int)];
-            rng.GetBytes(data);
-            return BitConverter.ToUInt32(data, 0);
         }
 
         public double Random01(double min, double max)

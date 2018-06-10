@@ -8,8 +8,9 @@ namespace zad3w1
 {
     public class Population
     {
+        private Random rng = new Random();
         public List<Creature> population;
-        public int generation = 0;
+        public int generation = 1;
         private readonly double mutationRate;
         private readonly bool elitism;
 
@@ -28,11 +29,21 @@ namespace zad3w1
             Population nextGen = new Population( this.population.Count(), this.mutationRate, this.elitism );
 
             if(elitism)
-                nextGen.population[0].SetGenotype(nextGen.GetFittest().genotype );
+                nextGen.population[0].SetGenotype( this.GetFittest().genotype );
 
             for (int i = (elitism ? 1 : 0); i < nextGen.population.Count(); i++)
             {
-                Creature c = Crossover( this.RouletteSelection(), this.RouletteSelection() );
+                Creature c1 = this.RouletteSelection();
+                Creature c2 = this.RouletteSelection();
+                while (c2 == c1)
+                    c2 = this.RouletteSelection();
+
+                /*Creature c1 = GetFittest(); // ranking selection? somehow manages to work worse than roulette
+                Creature c2 = GetFittest2();
+                if (c2 == c1)
+                    throw new Exception();*/
+
+                Creature c = Crossover( c1, c2 );
                 nextGen.population[i].SetGenotype( c.genotype );
             }
 
@@ -56,6 +67,27 @@ namespace zad3w1
             return fittest;
         }
 
+        public Creature GetFittest2()
+        {
+            Creature fittest1 = this.population[0];
+            Creature fittest2 = this.population[1];
+
+            foreach (var creature in this.population)
+            {
+                if (creature.fitness > fittest1.fitness)
+                {
+                    fittest2 = fittest1;
+                    fittest1 = creature;
+                }
+                /*else if (creature.fitness > fittest2.fitness)
+                {
+                    fittest2 = creature;
+                }*/
+            }
+
+            return fittest2;
+        }
+
         public Creature GetFattest()
         {
             Creature fattest = this.population[0];
@@ -73,7 +105,7 @@ namespace zad3w1
             foreach (var c in this.population)
                 fitnessSum += c.fitness;
 
-            double rand = new Creature().Random01(0, 1) * fitnessSum;
+            double rand = this.population[0].Random01(0, 1) * fitnessSum;
 
             foreach (var c in this.population)
             {
@@ -92,21 +124,25 @@ namespace zad3w1
             {
                 if(c.Random01(0, 1) <= 0.5) // 50% chances to mutate each gene
                 {
-                    double x = c.Random01(0, 18);
+                    //double x = c.Random01(0, 18);
 
-                    while ( !c.Constraint1(x, c.genotype[1]) || !c.Constraint2(x, c.genotype[1]) )
-                        x = c.Random01(0, 18);
+                    /*while ( !c.Constraint1(x, c.genotype[1]) || !c.Constraint2(x, c.genotype[1]) ) // we can't use constraints since they won't let Y move below ~7
+                        x = c.Random01(0, 18);*/
 
-                    c.genotype[0] = x;
+                    //c.genotype[0] = x;
+
+                    c.genotype[0] += RandomGaussian();
                 }
                 else
                 {
-                    double y = c.Random01(0, 15);
+                    //double y = c.Random01(0, 15);
 
-                    while ( !c.Constraint1(c.genotype[0], y) || !c.Constraint2(c.genotype[0], y) )
-                        y = c.Random01(0, 15);
+                    /*while ( !c.Constraint1(c.genotype[0], y) || !c.Constraint2(c.genotype[0], y) )
+                        y = c.Random01(0, 15);*/
 
-                    c.genotype[1] = y;
+                    //c.genotype[1] = y;
+
+                    c.genotype[1] += RandomGaussian();
                 }
             }
         }
@@ -123,7 +159,7 @@ namespace zad3w1
                     c0.genotype[i] = c2.genotype[i];
             }
 
-            /*c0.genotype[0] = (c1.genotype[0] + c2.genotype[0]) / 2;
+            /*c0.genotype[0] = (c1.genotype[0] + c2.genotype[0]) / 2; // taking average feels less efficient and is unrealistic
             c0.genotype[1] = (c1.genotype[1] + c2.genotype[1]) / 2;*/
 
             return c0;
@@ -131,8 +167,6 @@ namespace zad3w1
 
         public void CountFitness(Creature c)
         {
-            // fitness is counted as distance from Z_max = Function(18, 0) = 10 497 899
-            //double z = 10497899;
             c.fitness = 1/Function( c.genotype[0], c.genotype[1] );
         }
 
@@ -140,6 +174,16 @@ namespace zad3w1
         {
             foreach (var c in this.population)
                 this.CountFitness(c);
+        }
+
+        public double RandomGaussian(double sigma = 1, double mu = 0)
+        {
+            double u1 = 1.0 - rng.NextDouble(); // = (0; 1]
+            double u2 = 1.0 - rng.NextDouble();
+
+            double rand_std_normal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
+
+            return mu + sigma * rand_std_normal;
         }
 
         public double Function(double x, double y) => 100 * Math.Pow((x * x - y), 2) + Math.Pow((1 - x), 2) + 10;
