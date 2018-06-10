@@ -11,14 +11,18 @@ namespace zad3w1
             Console.WindowHeight *= 3;
             Console.WindowHeight /= 2;
 
-        // set up and start population
+            // set up and start population
             int    populationSize = 100;
-            double mutationRate   = 5;
+            double mutationRate   = 1;
             bool   elitism        = true;
-            double wantedFitness  = 0.1; // function minimum is 10, so this value shouldn't be higher than 0.1
+            double wantedFitness  = 0.099; // function minimum is 10, so this value shouldn't be higher than 0.1
+            Console.WriteLine("Population size:  " + populationSize.ToString() +
+                            "\nMutation rate:    " + mutationRate.ToString() +
+                            "\nElitism:          " + (elitism ? "ON" : "OFF") +
+                            "\nWanted fitness:   " + wantedFitness.ToString());
             population = new Population(populationSize, mutationRate, elitism);
 
-        // first generation
+            // first generation
             double bestFitness = 0;
             population.CountFitness();
             Console.WriteLine("\nGEN\t:  FITTEST'S FITNESS\t|  COORDINATES\t\t=  FUNCTION VALUE\n");

@@ -18,6 +18,9 @@ namespace zad3w1
             this.mutationRate = mutationRate;
             this.elitism = elitism;
 
+            if (size < 2) // no point in creating population containing only one creature since selection algorithms won't work in such case
+                size = 2;
+
             for (int i = 0; i < size; i++)
                 this.population.Add(new Creature());
         }
