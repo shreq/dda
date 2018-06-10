@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Threading;
 
@@ -20,7 +18,7 @@ namespace zad3w1
 
             double x = Random01(0, 18); // 0 <= x <= 18
             double y = Random01(0, 15); // 0 <= y <= 15
-            while ( !Constraint1(x, y) || !Constraint2(x, y) )
+            while (!Constraint1(x, y) || !Constraint2(x, y))
             {
                 x = Random01(0, 18);
                 y = Random01(0, 15);
@@ -37,14 +35,14 @@ namespace zad3w1
 
             for (int i = 0; i < this.genotype.Count(); i++)
                 this.genotype[i] = newSet[i];
-            //this.fitness = 0;
+            this.fitness = 0; // not really necessery, just for 'safety'
         }
 
         public string Genotype2string()
         {
             string str = "";
-            foreach (var g in this.genotype)
-                str += g.ToString("N5") + "; ";
+            foreach (var gene in this.genotype)
+                str += gene.ToString("N5") + "; ";
             return str;
         }
 
@@ -61,7 +59,7 @@ namespace zad3w1
             var data = new byte[4];
             rng.GetBytes(data);
 
-            double val = (double)Math.Abs(BitConverter.ToInt32(data, startIndex: 0));
+            double val = Math.Abs((double)BitConverter.ToInt32(data, startIndex: 0));
 
             double diff = max - min;
             double mod = val % diff;

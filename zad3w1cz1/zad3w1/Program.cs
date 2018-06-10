@@ -1,48 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace zad3w1
 {
     class Program
     {
+        static Population population;
+
         static void Main(string[] args)
         {
             Console.WindowHeight *= 3;
             Console.WindowHeight /= 2;
 
-            // make population
-            Population p = new Population(100, 0.5, true);
+        // set up and start population
+            int    populationSize = 100;
+            double mutationRate   = 5;
+            bool   elitism        = true;
+            double wantedFitness  = 0.1; // function minimum is 10, so this value shouldn't be higher than 0.1
+            population = new Population(populationSize, mutationRate, elitism);
 
         // first generation
-            double fit = 0;
-            p.CountFitness();
+            double bestFitness = 0;
+            population.CountFitness();
             Console.WriteLine("\nGEN\t:  FITTEST'S FITNESS\t|  COORDINATES\t\t=  FUNCTION VALUE\n");
-            Console.WriteLine(p.generation.ToString() + "\t:  " + p.GetFittest().fitness.ToString("N15") +
-                              "\t|  " + p.GetFittest().Genotype2string() +
-                              "\t=  " + p.Function(p.GetFittest().genotype[0], p.GetFittest().genotype[1]));
+            PrintStatus();
 
         // evolution
-            while (p.GetFittest().fitness < 0.099 && p.generation < 10000)
+            while (population.GetFittest().fitness < wantedFitness && population.generation < 10000)
             {
-                p.Evolve();
-                p.CountFitness();
-                if (p.GetFittest().fitness > fit)
+                population.Evolve();
+                population.CountFitness();
+
+                if (population.GetFittest().fitness > bestFitness)
                 {
-                    fit = p.GetFittest().fitness;
-                    Console.WriteLine(p.generation.ToString() + "\t:  " + p.GetFittest().fitness.ToString("N15 D3") +
-                                      "\t|  " + p.GetFittest().Genotype2string() +
-                                      "\t=  " + p.Function(p.GetFittest().genotype[0], p.GetFittest().genotype[1]));
+                    bestFitness = population.GetFittest().fitness;
+                    PrintStatus();
                 }
-                else if(p.generation % 100 == 0)
+                else if(population.generation % 100 == 0)
                 {
-                    Console.WriteLine(" " + p.generation.ToString() + "\t:  " + p.GetFittest().fitness.ToString("N15") +
-                                      "\t|  " + p.GetFittest().Genotype2string() +
-                                      "\t=  " + p.Function(p.GetFittest().genotype[0], p.GetFittest().genotype[1]));
+                    Console.Write(" ");
+                    PrintStatus();
                 }
             }
 
@@ -50,6 +46,13 @@ namespace zad3w1
             Console.WriteLine("\nDone");
             Console.Beep();
             Console.ReadKey();
+        }
+
+        static private void PrintStatus()
+        {
+            Console.WriteLine(population.generation.ToString() + "\t:  " + population.GetFittest().fitness.ToString("N15") +
+                              "\t|  " + population.GetFittest().Genotype2string() +
+                              "\t=  " + population.Function(population.GetFittest().genotype[0], population.GetFittest().genotype[1]).ToString());
         }
     }
 }
